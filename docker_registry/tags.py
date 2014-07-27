@@ -15,9 +15,9 @@ json = compat.json
 from . import storage
 from . import toolkit
 from .app import app
+from .lib import config
 from .lib import mirroring
 from .lib import signals
-from .lib import config
 
 cfg = config.load()
 store = storage.load()
