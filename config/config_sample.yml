@@ -51,6 +51,9 @@ common: &common
     # Enable bugsnag (set the API key)
     bugsnag: _env:BUGSNAG
 
+    # tag API CORS support is not enabled by default
+    cors_origin: _env:CORS_ORIGIN:"null"
+
 local: &local
     <<: *common
     storage: local

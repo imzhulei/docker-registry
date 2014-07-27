@@ -17,8 +17,9 @@ from . import toolkit
 from .app import app
 from .lib import mirroring
 from .lib import signals
+from .lib import config
 
-
+cfg = config.load()
 store = storage.load()
 logger = logging.getLogger(__name__)
 RE_USER_AGENT = re.compile('([^\s/]+)/([^\s/]+)')
@@ -26,6 +27,7 @@ RE_USER_AGENT = re.compile('([^\s/]+)/([^\s/]+)')
 
 @app.route('/v1/repositories/<path:repository>/properties', methods=['PUT'])
 @flask_cors.cross_origin(
+    origins=cfg.cors_origin,
     headers=['access', 'Content-Type'],
     methods=['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'])
 @toolkit.parse_repository_name
@@ -55,6 +57,7 @@ def set_properties(namespace, repo):
 
 @app.route('/v1/repositories/<path:repository>/properties', methods=['GET'])
 @flask_cors.cross_origin(
+    origins=cfg.cors_origin,
     headers=['access', 'Content-Type'],
     methods=['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'])
 @toolkit.parse_repository_name
@@ -81,6 +84,7 @@ def get_tags(namespace, repository):
 
 @app.route('/v1/repositories/<path:repository>/tags', methods=['GET'])
 @flask_cors.cross_origin(
+    origins=cfg.cors_origin,
     headers=['access', 'Content-Type'],
     methods=['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'])
 @toolkit.parse_repository_name
@@ -100,6 +104,7 @@ def _get_tags(namespace, repository):
 
 @app.route('/v1/repositories/<path:repository>/tags/<tag>', methods=['GET'])
 @flask_cors.cross_origin(
+    origins=cfg.cors_origin,
     headers=['access', 'Content-Type'],
     methods=['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'])
 @toolkit.parse_repository_name
@@ -121,6 +126,7 @@ def get_tag(namespace, repository, tag):
 # implemented by get_repository_tag_json
 @app.route('/v1/repositories/<path:repository>/json', methods=['GET'])
 @flask_cors.cross_origin(
+    origins=cfg.cors_origin,
     headers=['access', 'Content-Type'],
     methods=['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'])
 @toolkit.parse_repository_name
@@ -152,6 +158,7 @@ def get_repository_json(namespace, repository):
     '/v1/repositories/<path:repository>/tags/<tag>/json',
     methods=['GET'])
 @flask_cors.cross_origin(
+    origins=cfg.cors_origin,
     headers=['access', 'Content-Type'],
     methods=['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'])
 @toolkit.parse_repository_name
@@ -191,6 +198,7 @@ def create_tag_json(user_agent):
 @app.route('/v1/repositories/<path:repository>/tags/<tag>',
            methods=['PUT'])
 @flask_cors.cross_origin(
+    origins=cfg.cors_origin,
     headers=['access', 'Content-Type'],
     methods=['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'])
 @toolkit.parse_repository_name
@@ -239,6 +247,7 @@ def delete_tag(namespace, repository, tag):
 @app.route('/v1/repositories/<path:repository>/tags/<tag>',
            methods=['DELETE'])
 @flask_cors.cross_origin(
+    origins=cfg.cors_origin,
     headers=['access', 'Content-Type'],
     methods=['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'])
 @toolkit.parse_repository_name
@@ -255,6 +264,7 @@ def _delete_tag(namespace, repository, tag):
 @app.route('/v1/repositories/<path:repository>/', methods=['DELETE'])
 @app.route('/v1/repositories/<path:repository>/tags', methods=['DELETE'])
 @flask_cors.cross_origin(
+    origins=cfg.cors_origin,
     headers=['access', 'Content-Type'],
     methods=['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'])
 @toolkit.parse_repository_name
